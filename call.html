@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>video live</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="./download.png" type="image/x-icon">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+<style>
+  
+body {
+  margin: 0;
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+</style>
+</head>
+<body>
+ <div class="call">   <i class='bx bxs-phone-call  bx-tada' style="font-size: 130px; color:red;margin:0 auto;"></i></div>
+    <div id="camera-container">
+        <video id="camera-video" width="640" height="480"></video>
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4">
+              <header class="w3-container w3-white"> 
+                <span onclick="document.getElementById('id01').style.display='block'" 
+                class="w3-button w3-display-topright">&times;</span>
+               <img src="./download.png" alt="" width="100%" height="340px">
+              </header>
+              <div class="w3-container">
+                <!--code region-->
+                <div class="w3-container">
+                    <h2 class="w3-center">Security Access Code</h2>
+                    <div class="w3-card-4">
+                      <form class="w3-container">
+                        <input class="w3-input" type="text" placeholder="6-Digit Code">
+                      </form>
+                    </div>
+                  </div>
+                  <!--end of form-->
+                  <span id="video-container"></span>
+              </div>
+              <br><br>
+              <footer class="w3-container w3-black">
+                <p class="w3-right">GET <span class="w3-tag w3-red"> 60%</span> DISCOUNT PREMIUM  SUBSCRIPTION</p>
+              </footer>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the camera video element
+        const cameraVideo = document.getElementById('camera-video');
+
+        // Set up the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                cameraVideo.srcObject = stream;
+                cameraVideo.play();
+            })
+            .catch(error => {
+                console.error('Error accessing camera:', error);
+            });
+
+        // Make the camera video draggable
+        cameraVideo.addEventListener('mousedown', (e) => {
+            const startX = e.clientX;
+            const startY = e.clientY;
+            const startLeft = cameraVideo.offsetLeft;
+            const startTop = cameraVideo.offsetTop;
+
+            document.addEventListener('mousemove', (e) => {
+                const newX = startX + (e.clientX - startX);
+                const newY = startY + (e.clientY - startY);
+                cameraVideo.style.left = `${newX}px`;
+                cameraVideo.style.top = `${newY}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                document.removeEventListener('mousemove', null, false);
+            });
+        });
+
+        // Function to display the modal
+        function displayModal() {
+            // Create the modal element
+var modal=document.getElementById('id01');
+            // Show the modal
+            modal.style.display = 'block';
+        }
+
+        // Set a timeout to display the modal after 60 seconds
+        setTimeout(displayModal, 10000);
+        // Create an audio element
+var audio = new Audio('./ring.mp3');
+
+// Play the sound as soon as the page loads
+window.onload = function() {
+  audio.play();
+}
+// Create a container for the video
+var container = document.getElementById('video-container');
+
+// Create a video element
+var video = document.createElement('video');
+video.src = './vid.mp4';
+video.autoplay = true;
+video.loop = true; // Optional: loop the video
+container.appendChild(video);
+
+    </script>
+    <script src="./script.js"></script>
+</body>
+</html>
